@@ -24,6 +24,8 @@ Manuel Leonardo Mosquera Palomino
 
 ## Introduction
 
+![Preview](.fig/preview.png)
+
 This document presents a program that uses various concepts learned during the Computer Programming course. The program simulates an elevator and was created using the C++ language with the Dev C++ program. This program includes the **miniwin.h** library, which was developed to print figures in the console and interact with them minimally.
 
 ## Motivation
