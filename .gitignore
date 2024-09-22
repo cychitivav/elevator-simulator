@@ -4,3 +4,5 @@
 # Ignore Output files
 *.exe
 *.out
+*.o
+*.a
