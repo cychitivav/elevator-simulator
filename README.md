@@ -1,4 +1,5 @@
 <!-- omit in toc -->
+
 # :elevator:Elevator Simulator
 
 **Professor:**  
@@ -11,16 +12,17 @@ Manuel Leonardo Mosquera Palomino
 
 <!-- TABLE OF CONTENTS -->
 <!-- omit in toc -->
-## Table of contents
-- [Introduction](#introduction)
-- [Motivation](#motivation)
-- [Functionality](#functionality)
-- [Pseudocode](#pseudocode)
-  - [Flowchart](#flowchart)
-- [Conclusions](#conclusions)
-- [Authors](#authors)
-- [Bibliography](#bibliography)
 
+## Table of contents
+
+-   [Introduction](#introduction)
+-   [Motivation](#motivation)
+-   [Functionality](#functionality)
+-   [Pseudocode](#pseudocode)
+    -   [Flowchart](#flowchart)
+-   [Conclusions](#conclusions)
+-   [Authors](#authors)
+-   [Bibliography](#bibliography)
 
 ## Introduction
 
@@ -35,6 +37,37 @@ The reason we chose to work on this project is that it represents a significant 
 ## Functionality
 
 The program simulates the movement of an elevator. Two sets of control panels are used to guide its movement: one is located next to the building, where users can call the elevator, and another shows the floor numbers. First, a button is pressed to request the elevator, causing it to move to the requested floor. Then, from the second panel, the desired destination floor is selected, and the elevator moves accordingly.
+
+## Running the program
+
+In order to run the program, you must have some c++ compiler installed on your computer. We recommend using [MinGW](https://sourceforge.net/projects/mingw/) for Windows (After installing MinGW, you must add the path to the bin folder to the system's PATH variable), and g++ for Linux (usually already installed). Once you have the compiler installed, you can compile the program by following these steps:
+
+1. Open a terminal.
+2. Compile the miniwin library by running the following command:
+    ```bash
+    cd lib
+    g++ -c miniwin.cpp -o miniwin.o # Compile the miniwin library into an object file without linking (-c flag)
+    ar -rcs libminiwin.a miniwin.o # Create a static library from the object file
+    ```
+3. Compile the program by running the following command:
+
+    ```bash
+    cd ..
+    g++ main.cpp -L ./lib -l miniwin
+    ```
+
+    - The `-L` flag is used to specify the directory where the library is located
+    - The `-l` flag is used to specify the library to link to the program. In this case, the library is called `miniwin`.
+    
+    > [!IMPORTANT]
+    > - If you are using Windows, you need to add the `-l gdi32` flag to the compilation command to link the GDI library.
+    > - If you are using Linux, you need to add the `-l X11` flag to link the X11 library.
+
+1. These commands will generate an executable file called `a.exe` if you are using Windows or `a.out` if you are using Linux. You can run the program by executing the following command:
+    ```bash
+    ./a.exe # If you are using Windows (or just double-click the executable file)
+    ./a.out # If you are using Linux
+    ```
 
 ## Pseudocode
 

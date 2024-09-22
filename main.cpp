@@ -307,4 +307,6 @@ int main()
 	} while (usuario != 0); // Ciclo mientrsa la opcion no sea STOP
 
 	refresca(); // Llamado a la funcion para mostrar todos los dibujos
+
+	return 0; // Retorno de la funcion principal
 }
