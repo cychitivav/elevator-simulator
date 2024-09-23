@@ -63,6 +63,9 @@ In order to run the program, you must have some c++ compiler installed on your c
     > - If you are using Windows, you need to add the `-l gdi32` flag to the compilation command to link the GDI library.
     > - If you are using Linux, you need to add the `-l X11` flag to link the X11 library.
 
+    > [!NOTE]
+    > IF you have problems with `pthread` library, you can add the `-l pthread` flag to the compilation command.
+
 1. These commands will generate an executable file called `a.exe` if you are using Windows or `a.out` if you are using Linux. You can run the program by executing the following command:
     ```bash
     ./a.exe # If you are using Windows (or just double-click the executable file)
