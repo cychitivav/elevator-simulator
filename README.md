@@ -15,14 +15,14 @@ Manuel Leonardo Mosquera Palomino
 
 ## Table of contents
 
--   [Introduction](#introduction)
--   [Motivation](#motivation)
--   [Functionality](#functionality)
--   [Pseudocode](#pseudocode)
-    -   [Flowchart](#flowchart)
--   [Conclusions](#conclusions)
--   [Authors](#authors)
--   [Bibliography](#bibliography)
+- [Introduction](#introduction)
+- [Motivation](#motivation)
+- [Functionality](#functionality)
+- [Pseudocode](#pseudocode)
+  - [Flowchart](#flowchart)
+- [Conclusions](#conclusions)
+- [Authors](#authors)
+- [Bibliography](#bibliography)
 
 ## Introduction
 
@@ -38,97 +38,116 @@ The reason we chose to work on this project is that it represents a significant 
 
 The program simulates the movement of an elevator. Two sets of control panels are used to guide its movement: one is located next to the building, where users can call the elevator, and another shows the floor numbers. First, a button is pressed to request the elevator, causing it to move to the requested floor. Then, from the second panel, the desired destination floor is selected, and the elevator moves accordingly.
 
-## Running the program
+## Usage
 
-In order to run the program, you must have some c++ compiler installed on your computer. We recommend using [MinGW](https://sourceforge.net/projects/mingw/) for Windows (After installing MinGW, you must add the path to the bin folder to the system's PATH variable), and g++ for Linux (usually already installed). Once you have the compiler installed, you can compile the program by following these steps:
+In order to run the program, you must have some c++ compiler installed on your computer. We recommend using [MinGW](https://sourceforge.net/projects/mingw/) for Windows (After installing MinGW, you must add the path to the bin folder to the system's PATH variable), and g++ for Linux (usually already installed).
+
+### Dependencies
+
+- X11 library (for Linux users `sudo apt-get install libx11-dev`)
+- GDI library (for Windows users, this is usually included with the MinGW installation)
+
+### Compiling the program
+
+Once you have the compiler installed, you can compile the program by following these steps:
 
 1. Open a terminal.
 2. Compile the miniwin library by running the following command:
-    ```bash
-    cd lib
-    g++ -c miniwin.cpp -o miniwin.o # Compile the miniwin library into an object file without linking (-c flag)
-    ar -rcs libminiwin.a miniwin.o # Create a static library from the object file
-    ```
+   ```bash
+   cd lib
+   g++ -c miniwin.cpp -o miniwin.o # Compile the miniwin library into an object file without linking (-c flag)
+   ar -rcs libminiwin.a miniwin.o # Create a static library from the object file
+   ```
 3. Compile the program by running the following command:
 
-    ```bash
-    cd ..
-    g++ main.cpp -L ./lib -l miniwin
-    ```
+   ```bash
+   cd ..
+   # For Linux users:
+   g++ main.cpp -L ./lib -lminiwin -lX11
 
-    - The `-L` flag is used to specify the directory where the library is located
-    - The `-l` flag is used to specify the library to link to the program. In this case, the library is called `miniwin`.
-    
-    > [!IMPORTANT]
-    > - If you are using Windows, you need to add the `-l gdi32` flag to the compilation command to link the GDI library.
-    > - If you are using Linux, you need to add the `-l X11` flag to link the X11 library.
+   # For Windows users:
+   g++ main.cpp -L ./lib -lminiwin -lgdi32
+   ```
 
-    > [!NOTE]
-    > IF you have problems with `pthread` library, you can add the `-l pthread` flag to the compilation command.
+   - The `-L` flag is used to specify the directory where the library is located
+   - The `-l` flag is used to specify the library to link to the program. In this case, the library is called `miniwin`.
 
-1. These commands will generate an executable file called `a.exe` if you are using Windows or `a.out` if you are using Linux. You can run the program by executing the following command:
-    ```bash
-    ./a.exe # If you are using Windows (or just double-click the executable file)
-    ./a.out # If you are using Linux
-    ```
+   > [!IMPORTANT]
+   > - If you are using Windows, you need to add the `-l gdi32` flag to the compilation command to link the GDI library.
+   > - If you are using Linux, you need to add the `-l X11` flag to link the X11 library.
+
+   > [!NOTE]
+   > If you have problems with `pthread` library, you can add the `-l pthread` flag to the compilation command.
+
+### Running the program
+
+After compiling, an executable file will be created: `a.exe` on Windows or `a.out` on Linux. To run the program, use the appropriate command for your operating system:
+
+```bash
+# On Windows (or just double-click the executable file)
+./a.exe
+
+# On Linux
+./a.out
+```
 
 ## Pseudocode
 
 1. **Include libraries**:
 
-    - Include `miniwin.h` and `cstdlib`.
+   - Include `miniwin.h` and `cstdlib`.
 
 2. **Use namespace**:
 
-    - Use the `miniwin` namespace.
+   - Use the `miniwin` namespace.
 
 3. **Create constant for scaling**.
 
 4. **Create `person` function** (parameters: position, gender):
 
-    1. Assign skin color and draw head, neck, and hands.
-    2. Assign any color and draw two rectangles for the shirt (one for the sleeves, the other for the rest).
-    3. If `gender == 'm'`, draw small circles for hair.
+   1. Assign skin color and draw head, neck, and hands.
+   2. Assign any color and draw two rectangles for the shirt (one for the sleeves, the other for the rest).
+   3. If `gender == 'm'`, draw small circles for hair.
 
 5. **Create `brick` function** (input: coordinate):
 
-    1. Draw a rectangle starting at the given coordinate.
-    2. The endpoint is the starting coordinate plus the scale.
+   1. Draw a rectangle starting at the given coordinate.
+   2. The endpoint is the starting coordinate plus the scale.
 
 6. **Create `eraser` function** (no parameters):
 
-    1. Draw a black rectangle the size of the elevator.
-    2. Draw a smaller filled rectangle to erase what is passed without causing errors.
+   1. Draw a black rectangle the size of the elevator.
+   2. Draw a smaller filled rectangle to erase what is passed without causing errors.
 
 7. **Create `building` function** (parameters: location, number of floors):
 
-    1. Inside a `while` loop nested in a `for` loop, draw the floors at each level.
-    2. In the `for` loop:
-        - Draw planters, floors, and gates for each floor with different colors.
-    3. Draw columns, the roof, and the building's edges with different colors using `color_rgb`.
-    4. Use the `text` function to print the building's name.
-    5. Call `refresh` to display the drawings.
+   1. Inside a `while` loop nested in a `for` loop, draw the floors at each level.
+   2. In the `for` loop:
+      - Draw planters, floors, and gates for each floor with different colors.
+   3. Draw columns, the roof, and the building's edges with different colors using `color_rgb`.
+   4. Use the `text` function to print the building's name.
+   5. Call `refresh` to display the drawings.
 
 8. **Create `elevator` function** (parameters: current floor, destination floor, total floors):
 
-    1. Reassign variables based on the total floors to prevent the elevator from moving in the wrong direction.
-    2. Draw a brick at the position of the current floor.
-    3. Add a condition to restrict upward or downward movement.
-    4. Create a loop:
-        - Initialize a counter at the current floor.
-        - Move by `+0.001` or `-0.001` until reaching the destination.
-    5. Constantly draw and erase the elevator to simulate movement, calling `wait` with a 10 ms delay.
-    6. Call `refresh` to update the screen.
-    7. Draw the elevator at the destination floor.
+   1. Reassign variables based on the total floors to prevent the elevator from moving in the wrong direction.
+   2. Draw a brick at the position of the current floor.
+   3. Add a condition to restrict upward or downward movement.
+   4. Create a loop:
+      - Initialize a counter at the current floor.
+      - Move by `+0.001` or `-0.001` until reaching the destination.
+   5. Constantly draw and erase the elevator to simulate movement, calling `wait` with a 10 ms delay.
+   6. Call `refresh` to update the screen.
+   7. Draw the elevator at the destination floor.
 
 9. **Create `controlPanel` function**:
 
-    1. Assign color `0128128`.
-    2. Create variables for the control panel's initial position.
-    3. Use a `for` loop to draw three rectangles per row.
-    4. Reassign positioning variables.
-    5. Draw numbers and the STOP option according to the grid.
-    6. Call `refresh` to update the drawings.
+   1. Assign color `0128128`.
+   2. Create variables for the control panel's initial position.
+   3. Use a `for` loop to draw three rectangles per row.
+   4. Reassign positioning variables.
+   5. Draw numbers and the STOP option according to the grid.
+   6. Call `refresh` to update the drawings.
 
 10. **Create `miniPanels` function**:
 
@@ -148,13 +167,13 @@ In order to run the program, you must have some c++ compiler installed on your c
     5. Call the `miniPanels` function.
     6. Call the `controlPanel` function.
     7. Create an infinite loop to update the mouse's coordinates:
-        - If the coordinates are valid:
-            1. Call `mouse_left_button` and limit the click using `rangeX` and `rangeY`.
-            2. Limit clicks on different sections of the panel, simulating a matrix.
-            3. If the STOP button is clicked:
-                - Exit the program and trigger an emergency call.
-            4. If the mouse is outside the matrix:
-                - Assign `k` to the user variable.
+       - If the coordinates are valid:
+         1. Call `mouse_left_button` and limit the click using `rangeX` and `rangeY`.
+         2. Limit clicks on different sections of the panel, simulating a matrix.
+         3. If the STOP button is clicked:
+            - Exit the program and trigger an emergency call.
+         4. If the mouse is outside the matrix:
+            - Assign `k` to the user variable.
     8. Refresh all drawings.
 
 13. **End of the program**.
@@ -228,9 +247,9 @@ We also learned how to create simpler programs in terms of the number of lines o
 
 ## Authors
 
--   [Cristian Chitiva](https://github.com/cychitivav)
--   [Juan Sebastian Dueñas](https://github.com/jsduenass)
--   [Stiven Gómez](https://github.com/)
+- [Cristian Chitiva](https://github.com/cychitivav)
+- [Juan Sebastian Dueñas](https://github.com/jsduenass)
+- [Stiven Gómez](https://github.com/)
 
 ## Bibliography
 
